@@ -1,0 +1,78 @@
+SQLITE_API int sqlite3_open(
+  const char *filename,   /* Database filename (UTF-8) */
+  sqlite3 **ppDb          /* OUT: SQLite db handle */
+);
+
+SQLITE_API int sqlite3_close(sqlite3*);
+
+
+SQLITE_API int sqlite3_exec(
+  sqlite3*,                                  /* An open database */
+  const char *sql,                           /* SQL to be evaluated */
+  int (*callback)(void*,int,char**,char**),  /* Callback function */
+  void *,                                    /* 1st argument to callback */
+  char **errmsg                              /* Error msg written here */
+);
+
+SQLITE_API int sqlite3_prepare(
+  sqlite3 *db,            /* Database handle */
+  const char *zSql,       /* SQL statement, UTF-8 encoded */
+  int nByte,              /* Maximum length of zSql in bytes. */
+  sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
+  const char **pzTail     /* OUT: Pointer to unused portion of zSql */
+);
+SQLITE_API int sqlite3_prepare_v2(
+  sqlite3 *db,            /* Database handle */
+  const char *zSql,       /* SQL statement, UTF-8 encoded */
+  int nByte,              /* Maximum length of zSql in bytes. */
+  sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
+  const char **pzTail     /* OUT: Pointer to unused portion of zSql */
+);
+SQLITE_API int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
+SQLITE_API int sqlite3_bind_blob64(sqlite3_stmt*, int, const void*, sqlite3_uint64,
+                        void(*)(void*));
+SQLITE_API int sqlite3_bind_double(sqlite3_stmt*, int, double);
+SQLITE_API int sqlite3_bind_int(sqlite3_stmt*, int, int);
+SQLITE_API int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
+SQLITE_API int sqlite3_bind_null(sqlite3_stmt*, int);
+SQLITE_API int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+SQLITE_API int sqlite3_bind_text16(sqlite3_stmt*, int, const void*, int, void(*)(void*));
+SQLITE_API int sqlite3_bind_text64(sqlite3_stmt*, int, const char*, sqlite3_uint64,
+                         void(*)(void*), unsigned char encoding);
+SQLITE_API int sqlite3_bind_parameter_count(sqlite3_stmt*);
+
+SQLITE_API int sqlite3_step(sqlite3_stmt*);
+SQLITE_API int sqlite3_finalize(sqlite3_stmt *pStmt);
+
+
+
+
+
+
+
+#define SQLITE_OK           0   /* 成功 */
+#define SQLITE_ERROR        1   /* SQLエラー、もしくはデータベースが見つかりません */
+#define SQLITE_INTERNAL     2   /* SQLiteの内部ロジックエラー */
+#define SQLITE_PERM         3   /* アクセス権がありませｎ */
+#define SQLITE_ABORT        4   /* コールバック関数がアボートを要求した */
+#define SQLITE_BUSY         5   /* データベースがロックされています */
+#define SQLITE_LOCKED       6   /* テーブルがロックされています */
+#define SQLITE_NOMEM        7   /* malloc()に失敗しました */
+#define SQLITE_READONLY     8   /* 読み取り専用のデータベースに書き込もうとしました */
+#define SQLITE_INTERRUPT    9   /* オペレーションがsqlite_interrupt()によって終了された */
+#define SQLITE_IOERR       10   /* ディスクI/Oエラー */
+#define SQLITE_CORRUPT     11   /* データベースディスクイメージがmalformed */
+#define SQLITE_NOTFOUND    12   /* (Internal Only) テーブルかレコードが見つかりません */
+#define SQLITE_FULL        13   /* データベースにはこれ以上追加できません */
+#define SQLITE_CANTOPEN    14   /* データベースファイルが開けませんでした */
+#define SQLITE_PROTOCOL    15   /* データベースロックプロトコルエラー */
+#define SQLITE_EMPTY       16   /* (Internal Only) テーブルが空でした */
+#define SQLITE_SCHEMA      17   /* データベースのスキーマが変更されました */
+#define SQLITE_TOOBIG      18   /* Too much data for one row of a table */
+#define SQLITE_CONSTRAINT  19   /* contraint violationのため強制終了しました */
+#define SQLITE_MISMATCH    20   /* データ型が間違ってます */
+#define SQLITE_MISUSE      21   /* ライブラリの使い方が間違ってます */
+#define SQLITE_NOLFS       22   /* Uses OS features not supported on host */
+#define SQLITE_AUTH        23   /* Authorization denied */
+#define SQLITE_ROW         100  /* sqlite_step() has another row ready */
+#define SQLITE_DONE        101  /* sqlite_step() has finished executing */
