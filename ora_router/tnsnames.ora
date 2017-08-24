@@ -1,0 +1,6 @@
+### tnsnames.ora sample ###
+my_oracle=
+ (DESCRIPTION=
+  (ADDRESS=(PROTOCOL=tcp)(HOST=192.168.0.11)(PORT=1234))
+  (CONNECT_DATA=(SERVICE_NAME=xe))
+ )
