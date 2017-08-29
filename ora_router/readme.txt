@@ -1,8 +1,18 @@
 oracle Instant Client
 http://www.oracle.com/technetwork/topics/winx64soft-089540.html
 
-Instant Client ‚ÌƒCƒ“ƒXƒg[ƒ‹
+Instant Client ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 http://apis.jpn.ph/fswiki/wiki.cgi?page=Oracle%2FInstantClient
 
-OSqlEdit Oracle SQLƒGƒfƒBƒ^ (ŠJ”­E‰^—px‰‡ƒc[ƒ‹)
+OSqlEdit Oracle SQLã‚¨ãƒ‡ã‚£ã‚¿ (é–‹ç™ºãƒ»é‹ç”¨æ”¯æ´ãƒ„ãƒ¼ãƒ«)
 http://www.hi-ho.ne.jp/a_ogawa/osqledit/
+
+
+alter table EMP move tablespace users;
+
+select /*+ INDEX(EMP IDX_01) */ * from EMP where emp_id='111' and EMP_NAME='443' 
+Error
+[row:7,col:1] ORA-01502: ç´¢å¼•'RIVUS.IDX_01'ã¾ãŸã¯ãã®ãƒ‘ãƒ¼ãƒ†ã‚£ã‚·ãƒ§ãƒ³ãŒä½¿ç”¨ä¸å¯ã®çŠ¶æ…‹ã§ã™ã€‚
+
+ALTER INDEX PK_EMP_ID REBUILD NOLOGGING;
+ALTER INDEX IDX_01 REBUILD NOLOGGING;
