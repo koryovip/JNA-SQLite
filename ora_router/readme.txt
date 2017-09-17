@@ -16,3 +16,50 @@ Error
 
 ALTER INDEX PK_EMP_ID REBUILD NOLOGGING;
 ALTER INDEX IDX_01 REBUILD NOLOGGING;
+
+
+------------------------------------------------------------------
+http://qiita.com/jsaito/items/33c7b2b5dd80a7447a14
+Oracle 11g XEのDBをShift JIS化する
+
+root@localhost # su - oracle
+oracle@localhost $ sqlplus / as sysdba
+SQL> select value from nls_database_parameters where parameter='NLS_CHARACTERSET';
+SQL> shutdown immediate
+SQL> startup restrict mount
+SQL> drop database;
+SQL> quit
+
+oracle@localhost $ createdb.sh -dbchar JA16SJIS
+
+------------------------------------------------------------------
+pfileとSPFILE、どちらを使用しているのかを確認する！
+http://at-j.co.jp/blog/?p=5468
+
+
+------------------------------------------------------------------
+SQL> sqlplus / as sysdba
+接続されました。
+ 
+SQL> CREATE USER rivus
+IDENTIFIED BY "RIVUS_PASS"
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp
+/
+ 
+ユーザーが作成されました。
+好き勝手に動かしてもよいテスト環境であれば、DBA ロールの付与と表領域の使用量を無制限にしておくと良い。
+SQL> GRANT DBA TO RIVUS ;
+ 
+権限付与が成功しました。
+ 
+SQL> GRANT UNLIMITED TABLESPACE TO RIVUS ;
+ 
+権限付与が成功しました。
+
+-----------------------------------
+Oracle で日本語を取り扱うときの文字コード
+https://www.shift-the-oracle.com/config/multibyte-characterset.html
+SELECT PARAMETER, VALUE
+  FROM NLS_DATABASE_PARAMETERS
+ WHERE PARAMETER IN ('NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET');
