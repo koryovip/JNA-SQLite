@@ -32,6 +32,10 @@ SQL> quit
 
 oracle@localhost $ createdb.sh -dbchar JA16SJIS
 
+dockerの場合、以下の処理が必要
+cd data
+mv product _product
+cp -r ../share/oracle-product product
 ------------------------------------------------------------------
 pfileとSPFILE、どちらを使用しているのかを確認する！
 http://at-j.co.jp/blog/?p=5468
