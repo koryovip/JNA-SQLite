@@ -67,3 +67,13 @@ https://www.shift-the-oracle.com/config/multibyte-characterset.html
 SELECT PARAMETER, VALUE
   FROM NLS_DATABASE_PARAMETERS
  WHERE PARAMETER IN ('NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET');
+
+
+-----------------------------------
+如何让docker容器和宿主机在一个网段，并组成局域网
+docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 mynet
+docker pull alpine
+docker run --restart=always --net=mynet --name="test1" --ip=192.168.1.100 --privileged=true -dit 76da55c8019d /bin/ash
+docker run --restart=always --net=mynet --name="test2" --ip=192.168.1.101 --privileged=true -dit 76da55c8019d /bin/ash
+docker exec -it test1 /bin/ash
+docker exec -it test2 /bin/ash
