@@ -77,3 +77,17 @@ docker run --restart=always --net=mynet --name="test1" --ip=192.168.1.100 --priv
 docker run --restart=always --net=mynet --name="test2" --ip=192.168.1.101 --privileged=true -dit 76da55c8019d /bin/ash
 docker exec -it test1 /bin/ash
 docker exec -it test2 /bin/ash
+
+--SJIS ロケールの追加---------------------------------
+apt-get update
+apt-get -y install language-pack-ja-base language-pack-ja
+localedef -f SHIFT_JIS -i ja_JP ja_JP.SJIS
+update-locale LANG=ja_JP.SJIS LANGUAGE="ja_JP.SJIS:ja_JP:ja"
+source /etc/default/locale
+export LANG=ja_JP.SJIS
+apt-get clean
+apt-get autoremove
+rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
+
+
+docker commit 2d5f5afe1503 my_image:1.1
